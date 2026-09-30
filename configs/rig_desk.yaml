@@ -1,0 +1,75 @@
+# 책상 테스트용 리그 설정
+#
+# 30x20cm 상자를 "차량"으로 두고, 네 변에 카메라를 하나씩 세워 아래를 내려다보게 한다.
+# 여기 적힌 K 와 mount 값은 설계값(추정치)이다. 실제 카메라를 쓸 때는
+#   scripts/02_calib_intrinsic.py  → K, D 를 실측값으로 교체
+#   scripts/03_calib_extrinsic.py  → mount 를 R, t 실측값으로 교체
+# 하면 이 파일이 캘리브레이션 결과로 갱신된다.
+
+bev:
+  # 차량 좌표계: X 전방, Y 좌측. 화면은 위쪽이 전방, 왼쪽이 좌측.
+  x_min: -0.70
+  x_max: 0.70
+  y_min: -0.60
+  y_max: 0.60
+  resolution: 0.002 # 2mm/px → 700 x 600 출력
+
+blend:
+  mode: feather # feather | wedge
+  feather_m: 0.06
+  wedge_band_deg: 20.0
+  photometric: true
+
+vehicle:
+  length: 0.30
+  width: 0.20
+  x_offset: 0.0
+
+cameras:
+  - name: front
+    model: fisheye
+    image_size: [1280, 720]
+    hfov_deg: 150.0
+    K: [[489.0, 0.0, 640.0], [0.0, 489.0, 360.0], [0.0, 0.0, 1.0]]
+    D: [0.0, 0.0, 0.0, 0.0]
+    mount:
+      position: [0.15, 0.0, 0.22] # 상자 앞면 중앙, 높이 22cm
+      roll: 0.0
+      pitch: 40.0 # 아래로 40° 숙임
+      yaw: 0.0 # 전방
+
+  - name: left
+    model: fisheye
+    image_size: [1280, 720]
+    hfov_deg: 150.0
+    K: [[489.0, 0.0, 640.0], [0.0, 489.0, 360.0], [0.0, 0.0, 1.0]]
+    D: [0.0, 0.0, 0.0, 0.0]
+    mount:
+      position: [0.0, 0.10, 0.22]
+      roll: 0.0
+      pitch: 40.0
+      yaw: 90.0 # 좌측
+
+  - name: rear
+    model: fisheye
+    image_size: [1280, 720]
+    hfov_deg: 150.0
+    K: [[489.0, 0.0, 640.0], [0.0, 489.0, 360.0], [0.0, 0.0, 1.0]]
+    D: [0.0, 0.0, 0.0, 0.0]
+    mount:
+      position: [-0.15, 0.0, 0.22]
+      roll: 0.0
+      pitch: 40.0
+      yaw: 180.0 # 후방
+
+  - name: right
+    model: fisheye
+    image_size: [1280, 720]
+    hfov_deg: 150.0
+    K: [[489.0, 0.0, 640.0], [0.0, 489.0, 360.0], [0.0, 0.0, 1.0]]
+    D: [0.0, 0.0, 0.0, 0.0]
+    mount:
+      position: [0.0, -0.10, 0.22]
+      roll: 0.0
+      pitch: 40.0
+      yaw: -90.0 # 우측
