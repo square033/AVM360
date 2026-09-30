@@ -13,7 +13,7 @@
 ## 빠른 시작 (하드웨어 불필요)
 
 ```bash
-cd study/avm360
+cd avm360
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 
